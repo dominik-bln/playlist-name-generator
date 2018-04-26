@@ -1,26 +1,27 @@
 <template>
-  <v-select
-    ref="selectInput"
-    class="track-search"
-    label="Find tracks for playlist"
-    hint="Search by artist or track title"
-    autocomplete
-    return-object
-    multiple
-    persistent-hint
-    browser-autocomplete="off"
-    :filter="filterOutAlreadySelected"
-    :loading="isLoading"
-    :items="optionValues"
-    item-text="track_title"
-    :value="fakeSelection"
-    @input="handleSelection($event)"
-    :search-input="query"
-    @update:searchInput="handleSearchChange($event)">
-    <template slot="item" slot-scope="data">
-      <v-list-tile-content v-text="data.item.track_artist + ' | ' + data.item.track_title"></v-list-tile-content>
-    </template>
-  </v-select>
+  <div class="track-search">
+    <v-select
+      ref="selectInput"
+      label="Find tracks for playlist"
+      hint="Search by artist or track title"
+      autocomplete
+      return-object
+      multiple
+      persistent-hint
+      browser-autocomplete="off"
+      :filter="filterOutAlreadySelected"
+      :loading="isLoading"
+      :items="optionValues"
+      item-text="track_title"
+      :value="fakeSelection"
+      @input="handleSelection($event)"
+      :search-input="query"
+      @update:searchInput="handleSearchChange($event)">
+      <template slot="item" slot-scope="data">
+        <v-list-tile-content v-if="data.item.track_artist && data.item.track_title" v-text="data.item.track_artist + ' | ' + data.item.track_title"></v-list-tile-content>
+      </template>
+    </v-select>
+  </div>
 </template>
 
 <script>
@@ -99,6 +100,4 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-.track-search
-  max-height: 3rem
 </style>

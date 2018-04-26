@@ -81,7 +81,8 @@ const ELASTICSEARCH_URL = 'http://localhost:9200'
 export default {
   name: 'App',
   components: {
-    TrackSearch, TrackListing
+    TrackSearch,
+    TrackListing
   },
   data () {
     return {
@@ -176,12 +177,14 @@ body
   font-family: 'Avenir', Helvetica, Arial, sans-serif
   -webkit-font-smoothing: antialiased
   -moz-osx-font-smoothing: grayscale
-  padding: 8rem 5rem 2rem
+  padding: 4rem 5rem 2rem
 
-.track-search,
 .track-listing
 .submit
   margin-top: 4rem
+
+.track-search
+  padding-top: 4rem
 
 .main-title
   text-align: center
