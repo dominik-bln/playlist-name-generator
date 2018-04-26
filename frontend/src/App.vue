@@ -11,6 +11,7 @@
 
     <track-listing
       @deleteTrack="deleteTrack($event)"
+      :isLoading="isLoading"
       :tracks="tracks">
     </track-listing>
 

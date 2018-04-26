@@ -3,6 +3,7 @@
     class="track-listing elevation-1"
     :headers="headers"
     :items="tracks"
+    :loading="isLoading"
     hide-actions
   >
     <template slot="items" slot-scope="props">
@@ -26,16 +27,20 @@ export default {
     tracks: {
       type: Array,
       default: () => []
+    },
+    isLoading: {
+      type: Boolean,
+      default: false
     }
   },
   data () {
     return {
       headers: [
         { text: '#', value: 'track_number' },
-        { text: 'Title', value: 'title' },
-        { text: 'Artist', value: 'artist' },
+        { text: 'Title', value: 'track_title' },
+        { text: 'Artist', value: 'track_artist' },
         { text: 'ISRC', value: 'isrc' },
-        { text: '', value: 'actions' }
+        { text: '', value: 'actions', sortable: false }
       ]
     }
   }
