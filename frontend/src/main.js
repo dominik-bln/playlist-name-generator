@@ -8,18 +8,22 @@ import VApp from 'vuetify/es5/components/VApp'
 import Vuetify from 'vuetify/es5/components/Vuetify'
 import VSelect from 'vuetify/es5/components/VSelect'
 import VBtn from 'vuetify/es5/components/VBtn'
-import VJumbotron from 'vuetify/es5/components/VJumbotron'
+import VList from 'vuetify/es5/components/VList'
 import VDataTable from 'vuetify/es5/components/VDataTable'
 import transitions from 'vuetify/es5/components/transitions'
 import directives from 'vuetify/es5/directives'
+import axios from 'axios'
+import VueAxios from 'vue-axios'
+
+Vue.use(VueAxios, axios)
 
 Vue.use(Vuetify, {
   components: {
     VApp,
     Vuetify,
     VBtn,
-    VJumbotron,
     VDataTable,
+    VList,
     VSelect
   },
   directives,

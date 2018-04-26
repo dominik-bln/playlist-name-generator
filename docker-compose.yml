@@ -1,9 +1,13 @@
 version: '3'
 
-services: 
+services:
   elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch-oss:6.2.4
+    build:
+      context: ./elasticsearch
+    environment:
+      # By default, the heap size of the elasticsearch container is 2gb, which is
+      # also the default for Docker for Mac, leading it to crash if we don't use less.
+      ES_JAVA_OPTS: "-Xms1g -Xmx1g"
     ports:
       - 9200:9200
 
-      

@@ -1,12 +1,11 @@
-import json
 import elasticsearch
 from elasticsearch import helpers
 import pandas as pd
 
 
-def bulk_load(filename='~/Dokumente/isrc_lookup.csv'):
+def bulk_load(filename='./isrc_lookup.csv'):
     df1 = pd.read_csv(filename, sep='\t', chunksize=1000)
-    es = elasticsearch.Elasticsearch('http://localhost:9200')
+    es = elasticsearch.Elasticsearch('http://localhost:9200', cluster='docker-cluster')
     for chunk in df1:
         tmp = chunk.to_dict(orient="records")
         actions = [{

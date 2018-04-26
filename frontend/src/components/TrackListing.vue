@@ -6,8 +6,8 @@
     hide-actions
   >
     <template slot="items" slot-scope="props">
-      <td>{{ props.item.title }}</td>
-      <td>{{ props.item.artist }}</td>
+      <td>{{ props.item.track_title }}</td>
+      <td>{{ props.item.track_artist }}</td>
       <td>{{ props.item.isrc }}</td>
     </template>
   </v-data-table>
@@ -23,7 +23,7 @@ export default {
     }
   },
   data () {
-    return {
+    return {
       headers: [
         { text: 'Title', value: 'title' },
         { text: 'Artist', value: 'artist' },

@@ -1,8 +1,13 @@
 <template>
   <v-app id="app">
+    <h1 class="main-title display-2">Playlist Name Generator</h1>
+
     <track-search
-      :value="queryString"
-      @input="searchTrack($event)"/>
+      :value="[]"
+      :isLoading="isLoading"
+      :optionValues="searchResults"
+      @update:searchInput="searchTracks($event)"
+      @input="addToPlaylist($event)"/>
 
     <track-listing
       :tracks="tracks">
@@ -20,6 +25,9 @@
 import TrackSearch from './components/TrackSearch'
 import TrackListing from './components/TrackListing'
 
+// const API_URL = 'http://localhost:5000'
+const ELASTICSEARCH_URL = 'http://localhost:9200'
+
 export default {
   name: 'App',
   components: {
@@ -27,24 +35,33 @@ export default {
   },
   data () {
     return {
-      queryString: '',
-      tracks: [
-        {
-          isrc: '12345',
-          title: 'Some Title',
-          artist: 'The Artist'
-        },
-        {
-          isrc: '34567',
-          title: 'Another Title',
-          artist: 'Another Artist'
-        }
-      ]
+      tracks: [],
+      searchResults: [],
+      isLoading: false
     }
   },
   methods: {
-    searchTrack (queryString) {
-      this.queryString = queryString
+    searchTracks (queryString) {
+      console.debug('[Sending Query:]' + queryString)
+      this.isLoading = true
+      this.$http.get(ELASTICSEARCH_URL + '/isrcs/_search?size=40&q=' + queryString)
+        .then((response) => {
+          if (response.data.hits.hits.length) {
+            this.searchResults = response.data.hits.hits.map((item) => {
+              return item._source
+            })
+          } else {
+            this.searchResults = []
+          }
+          this.isLoading = false
+        })
+        .catch((response) => {
+          this.isLoading = false
+          alert('Failed to search for track')
+        })
+    },
+    addToPlaylist (track) {
+      this.tracks.push(track)
     }
   }
 }
@@ -73,9 +90,11 @@ body
   -moz-osx-font-smoothing: grayscale
   padding: 8rem 5rem 2rem
 
+.track-search,
 .track-listing
-  margin-top: 4rem
-
 .submit
   margin-top: 4rem
+
+.main-title
+  text-align: center
 </style>
