@@ -7,7 +7,10 @@ import App from './App'
 import VApp from 'vuetify/es5/components/VApp'
 import Vuetify from 'vuetify/es5/components/Vuetify'
 import VSelect from 'vuetify/es5/components/VSelect'
+import VDialog from 'vuetify/es5/components/VDialog'
+import VIcon from 'vuetify/es5/components/VIcon'
 import VBtn from 'vuetify/es5/components/VBtn'
+import VCard from 'vuetify/es5/components/VCard'
 import VList from 'vuetify/es5/components/VList'
 import VDataTable from 'vuetify/es5/components/VDataTable'
 import VSnackbar from 'vuetify/es5/components/VSnackbar'
@@ -25,7 +28,10 @@ Vue.use(Vuetify, {
     VBtn,
     VSnackbar,
     VDataTable,
+    VDialog,
+    VCard,
     VList,
+    VIcon,
     VSelect
   },
   directives,

@@ -10,6 +10,7 @@
       @input="addToPlaylist($event)"/>
 
     <track-listing
+      @deleteTrack="deleteTrack($event)"
       :tracks="tracks">
     </track-listing>
 
@@ -56,6 +57,17 @@
       Sorry, generating a name for your playlist failed.
       <v-btn flat @click.native="showPlaylistNameSearchError=false">Close</v-btn>
     </v-snackbar>
+
+    <v-dialog v-model="showResultDialog" max-width="500px">
+      <v-card>
+        <v-card-text>
+          Your playlist is called <b>{{ playlistName }}</b>.
+        </v-card-text>
+        <v-card-actions>
+          <v-btn color="primary" flat @click.stop="showResultDialog=false">Close</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </v-app>
 </template>
 
@@ -78,7 +90,9 @@ export default {
       isLoading: false,
       showTrackSelectionError: false,
       showTrackSearchError: false,
-      showPlaylistNameSearchError: false
+      showPlaylistNameSearchError: false,
+      playlistName: '',
+      showResultDialog: false
     }
   },
   methods: {
@@ -104,6 +118,14 @@ export default {
     addToPlaylist (track) {
       this.tracks.push(track)
     },
+    deleteTrack (track) {
+      const trackToDelete = this.tracks.findIndex((currentTrack) => {
+        return currentTrack === track
+      })
+      if (trackToDelete > -1) {
+        this.tracks.splice(trackToDelete, 1)
+      }
+    },
     requestPlaylistName () {
       if (!this.tracks.length) {
         this.showTrackSelectionError = true
@@ -116,7 +138,13 @@ export default {
       })
         .then((response) => {
           this.isLoading = false
-          console.log(response.data)
+
+          if (response.data.playlist_name) {
+            this.playlistName = response.data.playlist_name
+            this.showResultDialog = true
+            return
+          }
+          this.showPlaylistNameSearchError = true
         })
         .catch((response) => {
           this.isLoading = false

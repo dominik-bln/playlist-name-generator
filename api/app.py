@@ -5,6 +5,7 @@ app = Flask(__name__)
 
 CORS(app)
 
+
 @app.route('/')
 def index():
     return "Home"
@@ -16,7 +17,9 @@ def playlist_title_get():
         return "Use POST"
 
     body = request.json
-
     # do something with it
+    print(body)
 
-    return jsonify(body)
+    return jsonify({
+      'playlist_name': 'test title'
+    })

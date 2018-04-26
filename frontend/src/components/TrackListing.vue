@@ -10,6 +10,11 @@
       <td>{{ props.item.track_title }}</td>
       <td>{{ props.item.track_artist }}</td>
       <td>{{ props.item.isrc }}</td>
+      <td class="justify-center layout px-0">
+        <v-btn icon class="mx-0" @click="$emit('deleteTrack', props.item)">
+          <v-icon color="pink">delete</v-icon>
+        </v-btn>
+      </td>
     </template>
   </v-data-table>
 </template>
@@ -29,7 +34,8 @@ export default {
         { text: '#', value: 'track_number' },
         { text: 'Title', value: 'title' },
         { text: 'Artist', value: 'artist' },
-        { text: 'ISRC', value: 'isrc' }
+        { text: 'ISRC', value: 'isrc' },
+        { text: '', value: 'actions' }
       ]
     }
   }
