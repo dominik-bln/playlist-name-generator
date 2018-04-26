@@ -1,7 +1,9 @@
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 
 app = Flask(__name__)
 
+CORS(app)
 
 @app.route('/')
 def index():
@@ -17,7 +19,4 @@ def playlist_title_get():
 
     # do something with it
 
-    return jsonify({
-        'name': 'BBB'
-    })
-
+    return jsonify(body)

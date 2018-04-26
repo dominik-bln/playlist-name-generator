@@ -3,7 +3,7 @@
     <h1 class="main-title display-2">Playlist Name Generator</h1>
 
     <track-search
-      :value="[]"
+      :value="tracks"
       :isLoading="isLoading"
       :optionValues="searchResults"
       @update:searchInput="searchTracks($event)"
@@ -14,10 +14,48 @@
     </track-listing>
 
     <div class="submit text-xs-center">
-      <v-btn round color="primary" dark large>
+      <v-btn
+        round
+        color="primary"
+        dark
+        large
+        @click="requestPlaylistName()">
         Create Playlist Name
       </v-btn>
     </div>
+
+    <v-snackbar
+      :timeout="5000"
+      top
+      vertical
+      color="error"
+      v-model="showTrackSelectionError"
+    >
+      Please select some tracks first.
+      <v-btn flat @click.native="showTrackSelectionError=false">Close</v-btn>
+    </v-snackbar>
+
+    <v-snackbar
+      :timeout="5000"
+      top
+      vertical
+      color="error"
+      v-model="showTrackSearchError"
+    >
+      Failed to search for track
+      <v-btn flat @click.native="showTrackSearchError=false">Close</v-btn>
+    </v-snackbar>
+
+    <v-snackbar
+      :timeout="5000"
+      top
+      vertical
+      color="error"
+      v-model="showPlaylistNameSearchError"
+    >
+      Sorry, generating a name for your playlist failed.
+      <v-btn flat @click.native="showPlaylistNameSearchError=false">Close</v-btn>
+    </v-snackbar>
   </v-app>
 </template>
 
@@ -25,7 +63,7 @@
 import TrackSearch from './components/TrackSearch'
 import TrackListing from './components/TrackListing'
 
-// const API_URL = 'http://localhost:5000'
+const API_URL = 'http://localhost:5000'
 const ELASTICSEARCH_URL = 'http://localhost:9200'
 
 export default {
@@ -37,7 +75,10 @@ export default {
     return {
       tracks: [],
       searchResults: [],
-      isLoading: false
+      isLoading: false,
+      showTrackSelectionError: false,
+      showTrackSearchError: false,
+      showPlaylistNameSearchError: false
     }
   },
   methods: {
@@ -57,11 +98,30 @@ export default {
         })
         .catch((response) => {
           this.isLoading = false
-          alert('Failed to search for track')
+          this.showTrackSearchError = true
         })
     },
     addToPlaylist (track) {
       this.tracks.push(track)
+    },
+    requestPlaylistName () {
+      if (!this.tracks.length) {
+        this.showTrackSelectionError = true
+        return
+      }
+
+      this.isLoading = true
+      this.$http.post(API_URL + '/get_title', {
+        tracks: this.tracks
+      })
+        .then((response) => {
+          this.isLoading = false
+          console.log(response.data)
+        })
+        .catch((response) => {
+          this.isLoading = false
+          this.showPlaylistNameSearchError = true
+        })
     }
   }
 }

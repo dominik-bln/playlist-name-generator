@@ -70,7 +70,6 @@ export default {
       // Vuetify seems to copy and watch the selection, otherwise this would
       // not be necessary.
       this.fakeSelection = []
-      this.$refs.selectInput.hideMenu()
       // we only allow single selection, so the first in the list
       this.$emit('input', selection[0])
     },
@@ -92,7 +91,7 @@ export default {
      */
     filterOutAlreadySelected (itemToCheck) {
       return !this.value.find((item) => {
-        return item[this.isrc] === itemToCheck[this.isrc]
+        return item.isrc === itemToCheck.isrc
       })
     }
   }

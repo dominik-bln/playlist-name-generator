@@ -6,6 +6,7 @@
     hide-actions
   >
     <template slot="items" slot-scope="props">
+      <td>#{{props.index + 1}}</td>
       <td>{{ props.item.track_title }}</td>
       <td>{{ props.item.track_artist }}</td>
       <td>{{ props.item.isrc }}</td>
@@ -25,6 +26,7 @@ export default {
   data () {
     return {
       headers: [
+        { text: '#', value: 'track_number' },
         { text: 'Title', value: 'title' },
         { text: 'Artist', value: 'artist' },
         { text: 'ISRC', value: 'isrc' }

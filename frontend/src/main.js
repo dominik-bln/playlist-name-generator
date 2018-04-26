@@ -10,6 +10,7 @@ import VSelect from 'vuetify/es5/components/VSelect'
 import VBtn from 'vuetify/es5/components/VBtn'
 import VList from 'vuetify/es5/components/VList'
 import VDataTable from 'vuetify/es5/components/VDataTable'
+import VSnackbar from 'vuetify/es5/components/VSnackbar'
 import transitions from 'vuetify/es5/components/transitions'
 import directives from 'vuetify/es5/directives'
 import axios from 'axios'
@@ -22,6 +23,7 @@ Vue.use(Vuetify, {
     VApp,
     Vuetify,
     VBtn,
+    VSnackbar,
     VDataTable,
     VList,
     VSelect
