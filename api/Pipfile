@@ -7,6 +7,10 @@ name = "pypi"
 flask = "*"
 elasticsearch = "*"
 elasticsearch-dsl = "*"
+pandas = "*"
+petl = "*"
+fire = "*"
+ipython = "*"
 
 [dev-packages]
 
