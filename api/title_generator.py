@@ -33,7 +33,7 @@ class TitleGenerator():
 
     def load_word2vec_model(self,model_path):
         print 'loading Word2Vec model...'
-        self.model = gs.models.KeyedVectors.load_word2vec_format(google_model_path, binary=True)
+        self.model = gs.models.KeyedVectors.load_word2vec_format(model_path, binary=True)
 
     def get_isrcs(self,input):
         '''Get the isrcs from data input'''
@@ -112,6 +112,21 @@ class TitleGenerator():
         return title
 
 
+_tg = None
+def title_generator():
+    global _tg
+    if _tg is None:
+        config = {
+            'playlist_titles_file': '/data/playlist_titles_full.csv',
+            'playlist_data_file': '/data/playlist_train_meta.csv',
+            'centroids_mat_file': '/data/kmeans_mat'}
+
+        google_model_path = '/data/GoogleNews-vectors-negative300.bin.gz'
+
+        tg = TitleGenerator(config)
+        tg.load_word2vec_model(google_model_path)
+        print('Loading data...')
+        tg.load_data()
 
 if __name__ == "__main__":
 
@@ -122,11 +137,11 @@ if __name__ == "__main__":
     # google_model_path = '/disk1/musicathon/word2vec_models/GoogleNews-vectors-negative300.bin.gz'
 
     config = {
-        'playlist_titles_file': '/Users/quintoe/BoxSync/UMG_sync/Projects/Musicathon_Berlin_2018/data/playlist_titles_full.csv',
-        'playlist_data_file': '/Users/quintoe/BoxSync/UMG_sync/Projects/Spofity_Playlist_Pitching/Recommender/cf_recommender_Daniel/playlist_train_meta.csv',
-        'centroids_mat_file':'/Users/quintoe/BoxSync/UMG_sync/Projects/Musicathon_Berlin_2018/data/kmeans_mat',
-        'savedir': '/Users/quintoe/BoxSync/UMG_sync/Projects/Musicathon_Berlin_2018/data'}
-    google_model_path = '/Users/quintoe/BoxSync/UMG_sync/Projects/Musicathon_Berlin_2018/data/GoogleNews-vectors-negative300.bin.gz'
+        'playlist_titles_file': '/data/playlist_titles_full.csv',
+        'playlist_data_file': '/data/playlist_train_meta.csv',
+        'centroids_mat_file':'/data/kmeans_mat',
+        'savedir': '/data'}
+    google_model_path = '/data/GoogleNews-vectors-negative300.bin.gz'
 
 
     input = {"tracks":[{"isrc":"DELZ31500002","track_artist":"ASD","track_title":"Sneak Preview"},{"isrc":"GBAAP0100769","track_artist":"A","track_title":"Nothing"},{"isrc":"BRWMB1700345","track_artist":"Class A","track_title":"Nós dois"},{"isrc":"TWA471708011","track_artist":"A-Lin","track_title":"未單身"},{"isrc":"USRH11502698","track_artist":"a-ha","track_title":"Take on Me - Kygo Remix"},{"isrc":"SEBKA0013010","track_artist":"A*Teens","track_title":"Upside Down"},{"isrc":"TWA471607002","track_artist":"A-Lin","track_title":"天若有情 (電視劇「錦繡未央」主題曲) - Theme song of TV Drama \"Princess Weiyoung\""},{"isrc":"NLPM11620772","track_artist":"A Firma","track_title":"Fada"}]}

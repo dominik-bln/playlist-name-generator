@@ -5,7 +5,7 @@ RUN pip install -U pipenv
 WORKDIR /code
 ADD . /code
 
-RUN pipenv install --system
+RUN pipenv install --system --skip-lock
 ENV FLASK_DEBUG=1
 ENV FLASK_APP=app.py
 ENTRYPOINT [ "./docker-entrypoint.sh" ]
