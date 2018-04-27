@@ -13,8 +13,6 @@ services:
   frontend:
     build:
       context: ./frontend
-    volumes:
-      - ./frontend:/code
     ports:
       - 8080:8080
 
