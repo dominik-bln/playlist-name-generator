@@ -61,7 +61,7 @@
 
     <v-dialog v-model="showResultDialog" max-width="500px">
       <v-card>
-        <v-card-text>
+        <v-card-text class="result-text">
           Your playlist is called <b>{{ playlistName }}</b>.
         </v-card-text>
         <v-card-actions>
@@ -189,4 +189,7 @@ body
 
 .main-title
   text-align: center
+
+.result-text
+  font-size: 1.5rem
 </style>

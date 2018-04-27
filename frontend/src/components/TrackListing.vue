@@ -36,7 +36,7 @@ export default {
   data () {
     return {
       headers: [
-        { text: '#', value: 'track_number' },
+        { text: '#', value: 'track_number', sortable: false },
         { text: 'Title', value: 'track_title' },
         { text: 'Artist', value: 'track_artist' },
         { text: 'ISRC', value: 'isrc' },

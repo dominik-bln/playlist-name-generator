@@ -10,4 +10,11 @@ services:
       ES_JAVA_OPTS: "-Xms1g -Xmx1g"
     ports:
       - 9200:9200
+  frontend:
+    build:
+      context: ./frontend
+    volumes:
+      - ./frontend:/code
+    ports:
+      - 8080:8080
 
