@@ -7,7 +7,7 @@ services:
     depends_on:
       - elasticsearch
     volumes: 
-      ./api:/code
+      - ./api:/code
       # the destination path is fixed and should not be changed!
       - ./data:/data
     ports:
