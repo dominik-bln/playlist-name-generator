@@ -1,6 +1,23 @@
 version: '3'
 
 services:
+  api:
+    build:
+      context: ./api
+    depends_on:
+      - elasticsearch
+    volumes: 
+      # the destination path is fixed and should not be changed!
+      - ./data/isrc_lookupn.csv:/data/isrc_lookup.csv
+    ports: 
+      - 5000:5000
+
+  frontend:
+    build:
+      context: ./frontend
+    ports:
+      - 8080:8080
+
   elasticsearch:
     build:
       context: ./elasticsearch
@@ -10,9 +27,4 @@ services:
       ES_JAVA_OPTS: "-Xms1g -Xmx1g"
     ports:
       - 9200:9200
-  frontend:
-    build:
-      context: ./frontend
-    ports:
-      - 8080:8080
 

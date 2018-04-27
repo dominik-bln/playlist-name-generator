@@ -9,11 +9,10 @@ flask-cors = "*"
 elasticsearch = "*"
 elasticsearch-dsl = "*"
 pandas = "*"
-petl = "*"
 fire = "*"
-ipython = "*"
 
 [dev-packages]
+ipython = "*"
 
 [requires]
-python_version = "3.6"
+python_version = "2.7"
