@@ -101,7 +101,7 @@ export default {
     searchTracks (queryString) {
       console.debug('[Sending Query:]' + queryString)
       this.isLoading = true
-      this.$http.get(ELASTICSEARCH_URL + '/isrcs/_search?size=40&q=' + queryString)
+      this.$http.get(ELASTICSEARCH_URL + '/isrc/_search?size=40&q=' + queryString)
         .then((response) => {
           if (response.data.hits.hits.length) {
             this.searchResults = response.data.hits.hits.map((item) => {
