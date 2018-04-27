@@ -7,6 +7,7 @@ services:
     depends_on:
       - elasticsearch
     volumes: 
+      ./api:/code
       # the destination path is fixed and should not be changed!
       - ./data/isrc_lookupn.csv:/data/isrc_lookup.csv
     ports: 
