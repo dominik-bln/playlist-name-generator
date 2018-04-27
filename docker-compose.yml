@@ -6,10 +6,10 @@ services:
       context: ./api
     depends_on:
       - elasticsearch
-    volumes: 
+    volumes:
       # the destination path is fixed and should not be changed!
-      - ./data/isrc_lookupn.csv:/data/isrc_lookup.csv
-    ports: 
+      - ./data/isrc_lookup.csv:/data/isrc_lookup.csv
+    ports:
       - 5000:5000
 
   frontend:
