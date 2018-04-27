@@ -1,9 +1,23 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
+from title_generator import TitleGenerator
+
 
 app = Flask(__name__)
 
 CORS(app)
+
+# Initialise datapaths
+config = {
+    'playlist_titles_file': '/data/playlist_titles_full.csv',
+    'playlist_data_file': '/data/playlist_train_meta.csv',
+    'centroids_mat_file': '/data/kmeans_mat'}
+google_model_path = '/data/GoogleNews-vectors-negative300.bin.gz'
+
+tg = TitleGenerator(config)
+tg.load_word2vec_model(google_model_path)
+print 'Loading data...'
+tg.load_data()
 
 
 @app.route('/')
@@ -16,10 +30,14 @@ def playlist_title_get():
     if request.method == 'GET':
         return "Use POST"
 
-    body = request.json
+    # tg.model = model
+    # Get data from UI
+    ui_data = request.json
     # do something with it
-    print(body)
+    print(ui_data)
+    print 'Running...'
+    title = tg.generate_title(ui_data['tracks'])
 
     return jsonify({
-      'playlist_name': 'test title'
+      'playlist_name': title
     })
