@@ -5,7 +5,11 @@ ISRCs of the songs.
 
 ## Usage
 
-To use the application you need to copy the required data into the root folder
-of the application and start with `docker-compose up`.
+To use the application you need to put the required data into the `./data`
+folder. The following files are expected to be present:
 
-After this you can go to [http://localhost:8080](http://localhost:8080).
+- **`isrc_lookup.csv`** a tab separated value file with the columns `isrc`,
+  `track_artist` and `track_title`.
+
+The you can start the application with `docker-compose up` and find it at
+[http://localhost:8080](http://localhost:8080).
